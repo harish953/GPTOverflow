@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/themeProvider";
 
+// import whyDidYouRender from "@welldone-software/why-did-you-render";
+
 export const metadata: Metadata = {
   title: "GPTOverflow",
   description:
