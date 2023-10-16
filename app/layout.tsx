@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   title: "GPTOverflow",
   description:
     "A community driven platform for asking and answering questions.Get Help ,share knowledge and collaborate with developers around the world",
-  icons: {
-    icon: "../public/assets/icons/site-logo.svg",
-  },
+  // icons: {
+  //   icon: "../public/assets/icons/site-logo.svg",
+  // },
 };
 const inter = Inter({
   subsets: ["latin"],
