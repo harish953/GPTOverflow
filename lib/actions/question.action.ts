@@ -3,20 +3,17 @@
 import Question from "@/database/question.model";
 import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose";
-import {
-  CreateQuestionParams,
-  DeleteQuestionParams,
-  EditQuestionParams,
-  GetQuestionByIdParams,
-  GetQuestionsParams,
-  QuestionVoteParams,
-  RecommendedParams,
-} from "./shared.types";
+
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 // import Answer from "@/database/answer.model";
 // import Interaction from "@/database/interaction.model";
 import { FilterQuery } from "mongoose";
+import {
+  CreateQuestionParams,
+  EditQuestionParams,
+  GetQuestionsParams,
+} from "./shared";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -101,13 +98,13 @@ export async function createQuestion(params: CreateQuestionParams) {
       $push: { tags: { $each: tagDocuments } },
     });
 
-    // Create an interaction record for the user's ask_question action
-    await Interaction.create({
-      user: author,
-      action: "ask_question",
-      question: question._id,
-      tags: tagDocuments,
-    });
+    // // Create an interaction record for the user's ask_question action
+    // await Interaction.create({
+    //   user: author,
+    //   action: "ask_question",
+    //   question: question._id,
+    //   tags: tagDocuments,
+    // });
 
     // Increment author's reputation by +5 for creating a question
     await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
