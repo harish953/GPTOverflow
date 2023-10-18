@@ -2,7 +2,7 @@
 
 import Tag from "@/database/tag.model";
 import { connectToDatabase } from "../mongoose";
-import { GetTopInteractedTagsParams } from "./shared";
+// import { GetAllTagsParams, GetTopInteractedTagsParams } from "./shared";
 
 export async function getAllTags() {
   try {
@@ -20,18 +20,18 @@ export async function getAllTags() {
   }
 }
 
-export async function getTagById(params: GetTopInteractedTagsParams) {
-  try {
-    connectToDatabase();
+// export async function getTagById(params: GetAllTagsParams) {
+//   try {
+//     connectToDatabase();
 
-    const { tagId } = params;
-    const tag = await Tag.findById(tagId);
-    if (!tag) {
-      throw new Error("Tag not found");
-    }
-    return { _id: 1, name: "python" };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+//     const { tagId } = params;
+//     const tag = await Tag.findById(tagId);
+//     if (!tag) {
+//       throw new Error("Tag not found");
+//     }
+//     return { _id: 1, name: "python" };
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }

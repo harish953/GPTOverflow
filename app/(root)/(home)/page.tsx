@@ -1,4 +1,3 @@
-import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/LocalSearch";
 import NoResults from "@/components/shared/NoResults";
 import QuestionCard from "@/components/cards/QuestionCard";
@@ -7,6 +6,7 @@ import { HomePageFilters } from "@/constants/filters";
 
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
+import Filter from "@/components/shared/Filter";
 
 export default async function Home() {
   const result = await getQuestions({});
