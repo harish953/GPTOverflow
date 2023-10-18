@@ -103,7 +103,7 @@ export default function Home() {
           <h1 className="h1-bold text-dark100_light900 font-medium">
             All Questions
           </h1>
-          <Link href="/questions" className="flex justify-end max-sm:w-full">
+          <Link href="/ask-question" className="flex justify-end max-sm:w-full">
             <button className="  primary-gradient min-h-[46px]  rounded-lg px-4 py-3 text-light-900">
               Ask Question
             </button>
