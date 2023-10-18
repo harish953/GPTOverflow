@@ -4,96 +4,13 @@ import NoResults from "@/components/shared/NoResults";
 import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilter from "@/components/shared/homeFilter/HomeFilter";
 import { HomePageFilters } from "@/constants/filters";
-// import { Item } from "@radix-ui/react-menubar";
+
 import Link from "next/link";
+import { getQuestions } from "@/lib/actions/question.action";
 
-export default function Home() {
-  const questions = [
-    {
-      _id: "1",
-      title: "Best practices for data fetching in Next.js",
-      tags: [
-        { _id: "1", name: "Next.js" },
-        { _id: "2", name: "React" },
-      ],
-      author: {
-        _id: "user1",
-        name: "John Doe",
-        picture: "john-doe.jpg",
-      },
-      upvotes: 10,
-      views: 152,
-      answers: [
-        {
-          _id: "answer1",
-          content: "Use SWR for data fetching.",
-          author: {
-            _id: "user2",
-            name: "Jane Smith",
-            picture: "jane-smith.jpg",
-          },
-          createdAt: new Date("2021-09-02T09:30:00Z"),
-        },
-      ],
-      createdAt: new Date("2021-09-01T12:00:00Z"),
-    },
-    {
-      _id: "2",
-      title: "Optimizing images in Next.js",
-      tags: [
-        { _id: "3", name: "Next.js" },
-        { _id: "4", name: "Image Optimization" },
-      ],
-      author: {
-        _id: "user2",
-        name: "Jane Smith",
-        picture: "jane-smith.jpg",
-      },
-      upvotes: 8567857,
-      views: 8898708,
-      answers: [
-        {
-          _id: "answer2",
-          content: "Use the 'next/image' component for image optimization.",
-          author: {
-            _id: "user1",
-            name: "John Doe",
-            picture: "john-doe.jpg",
-          },
-          createdAt: new Date("2021-09-02T10:15:00Z"),
-        },
-        {
-          _id: "answer3",
-          content: "Consider using a CDN for images.",
-          author: {
-            _id: "user3",
-            name: "Alice Johnson",
-            picture: "alice-johnson.jpg",
-          },
-          createdAt: new Date("2021-09-02T10:30:00Z"),
-        },
-      ],
-      createdAt: new Date("2021-09-02T08:45:00Z"),
-    },
-    {
-      _id: "3",
-      title: "State management in React applications",
-      tags: [
-        { _id: "5", name: "React" },
-        { _id: "6", name: "Redux" },
-      ],
-      author: {
-        _id: "user3",
-        name: "Alice Johnson",
-        picture: "alice-johnson.jpg",
-      },
-      upvotes: 12,
-      views: 110,
-      answers: [],
-      createdAt: new Date("2021-09-03T10:00:00Z"),
-    },
-  ];
-
+export default async function Home() {
+  const result = await getQuestions({});
+  // console.log(result);
   // Now the `questions` array matches the `QuestionProps` interface with random values.
 
   return (
@@ -126,8 +43,8 @@ export default function Home() {
         </div>
         <HomeFilter />
         <div className="mt-10 flex w-full flex-col gap-6">
-          {questions.length > 0 ? (
-            questions.map((question) => (
+          {result.questions.length > 0 ? (
+            result.questions.map((question) => (
               <QuestionCard
                 key={question._id}
                 title={question.title}
