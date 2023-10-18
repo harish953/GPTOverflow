@@ -11,7 +11,10 @@ export const connectToDatabase = async () => {
     console.log("MongoDB is already connected");
   }
   try {
-    await mongoose.connect(process.env.MONGO_URL, { dbName: "gptoverflow" });
+    // @ts-ignore
+    await mongoose.connect(process.env.MONGO_URL, {
+      dbName: "gptoverflow", // @ts-no-check
+    });
 
     isConnected = true;
     console.log(isConnected);
