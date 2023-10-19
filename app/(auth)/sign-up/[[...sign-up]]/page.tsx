@@ -1,9 +1,5 @@
-import React from "react";
+import { SignUp } from "@clerk/nextjs";
 
-type Props = {};
-
-const page = (props: Props) => {
-  return <div>sign-up</div>;
-};
-
-export default page;
+export default function page() {
+  return <SignUp />;
+}
