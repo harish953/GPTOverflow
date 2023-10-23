@@ -2,19 +2,17 @@ import { ClerkProvider } from '@clerk/nextjs'
 import React from 'react'
 import { Inter, Space_Grotesk } from 'next/font/google' // @ts-ignore
 import type { Metadata } from 'next'
-// import "./globals.css";
+
 import './globals.css'
 import { ThemeProvider } from '@/context/themeProvider'
-
-// import whyDidYouRender from "@welldone-software/why-did-you-render";
 
 export const metadata: Metadata = {
   title: 'GPTOverflow',
   description:
     'A community driven platform for asking and answering questions.Get Help ,share knowledge and collaborate with developers around the world',
-  icons: {
-    icon: '/public/assets/icons/site-logo.svg',
-  },
+  // icons: {
+  //   icon: '/public/assets/icons/site-logo.svg',
+  // },
 }
 const inter = Inter({
   subsets: ['latin'],
