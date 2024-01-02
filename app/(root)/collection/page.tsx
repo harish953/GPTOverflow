@@ -49,19 +49,23 @@ export default async function Home() {
         <HomeFilter />
         <div className='mt-10 flex w-full flex-col gap-6'>
           {result.questions.length > 0 ? (
-            result.questions.map((question) => (
-              <QuestionCard
-                key={question._id}
-                title={question.title}
-                _id={question._id}
-                tags={question.tags}
-                author={question.author}
-                answers={question.answers}
-                views={question.views}
-                upvotes={question.upvotes.length}
-                createdAt={question.createdAt}
-              />
-            ))
+            result.questions.map(
+              (
+                question: any // @ts-ignore
+              ) => (
+                <QuestionCard
+                  key={question._id}
+                  title={question.title}
+                  _id={question._id}
+                  tags={question.tags}
+                  author={question.author}
+                  answers={question.answers}
+                  views={question.views}
+                  upvotes={question.upvotes.length}
+                  createdAt={question.createdAt}
+                />
+              )
+            )
           ) : (
             <NoResults
               title='There is no saved question to show'
