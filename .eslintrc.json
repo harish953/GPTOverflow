@@ -4,5 +4,9 @@
     "standard",
     "plugin:tailwindcss/recommended",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "camelcase": "off",
+    "tailwindcss/classnames-order": "off"
+  }
 }

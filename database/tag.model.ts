@@ -1,20 +1,20 @@
-import { Schema, models, model, Document } from "mongoose";
+import { Schema, models, model, Document } from 'mongoose'
 
-export interface IUser extends Document {
-  name: string;
-  description: string;
-  questions: Schema.Types.ObjectId[];
-  followers: Schema.Types.ObjectId[];
+export interface ITag extends Document {
+  name: string
+  description: string
+  questions: Schema.Types.ObjectId[]
+  followers: Schema.Types.ObjectId[]
 
-  createdOn: Date;
+  createdOn: Date
 }
 const UserSchema = new Schema({
   name: { type: String, required: true, unique: true },
   description: { type: String, required: true },
-  questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
-  followers: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+  questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+  followers: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
   createdOn: { type: Date, default: Date.now },
-});
+})
 
-const Tag = models.Tag || model("Tag", UserSchema);
-export default Tag;
+const Tag = models.Tag || model('Tag', UserSchema)
+export default Tag
