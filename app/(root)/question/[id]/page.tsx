@@ -10,7 +10,7 @@ import { auth } from '@clerk/nextjs'
 import { getUserById } from '@/lib/actions/user.action'
 import AllAnswers from '@/components/shared/AllAnswers'
 import Votes from '@/components/shared/Votes'
-import ParseHTML from '@/components/shared/ParseHTML'
+import ParseHTML from '@/components/shared/parseHTML'
 
 interface Props {
   params: any
