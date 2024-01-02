@@ -12,8 +12,8 @@ interface Props {
   questionId: string
   userId: string
   totalAnswers: number
-  page: number
-  filter: string
+  page?: number
+  filter?: string
 }
 
 const AllAnswers = async ({
