@@ -5,8 +5,8 @@ import { getAnswers } from '@/lib/actions/answer.action'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getTimestamp } from '@/lib/utils'
-import ParseHTML from './parseHTML'
 import Votes from './Votes'
+import ParseHTML from './parseHTML'
 
 interface Props {
   questionId: string

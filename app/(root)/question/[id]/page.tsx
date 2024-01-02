@@ -3,7 +3,6 @@ import { getQuestionById } from '@/lib/actions/question.action'
 import { formatAndDivideNumber, getTimestamp } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import ParseHTML from '@/components/shared/parseHTML'
 import React from 'react'
 import RenderTag from '@/components/shared/RenderTag'
 import Answer from '@/components/forms/Answer'
@@ -11,6 +10,7 @@ import { auth } from '@clerk/nextjs'
 import { getUserById } from '@/lib/actions/user.action'
 import AllAnswers from '@/components/shared/AllAnswers'
 import Votes from '@/components/shared/Votes'
+import ParseHTML from '@/components/shared/ParseHTML'
 
 interface Props {
   params: any
