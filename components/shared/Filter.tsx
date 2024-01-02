@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 import {
   Select,
@@ -7,15 +7,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
 interface Props {
   filters: {
-    name: string;
-    value: string;
-  }[];
-  otherClasses: string;
-  containerClasses?: string;
+    name: string
+    value: string
+  }[]
+  otherClasses?: string
+  containerClasses?: string
 }
 
 const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
@@ -29,10 +29,10 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
           text-dark500_light700 border px-5 py-2.5`}
           >
             <div
-              className="background-light800_dark300 text-dark500_light700 line-clamp-1 flex-1
-          text-left "
+              className='background-light800_dark300 text-dark500_light700 line-clamp-1 flex-1
+          text-left '
             >
-              <SelectValue placeholder="Select a Filter" />
+              <SelectValue placeholder='Select a Filter' />
             </div>
           </SelectTrigger>
           <SelectContent>
@@ -42,14 +42,14 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
                   <SelectItem key={item.value} value={item.value}>
                     {item.name}
                   </SelectItem>
-                );
+                )
               })}
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Filter;
+export default Filter

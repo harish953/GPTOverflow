@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk } from 'next/font/google' // @ts-ignore
 import type { Metadata } from 'next'
 
 import './globals.css'
+import '../styles/prism.css'
 import { ThemeProvider } from '@/context/themeProvider'
 
 export const metadata: Metadata = {

@@ -2,14 +2,19 @@ import LocalSearch from '@/components/shared/LocalSearch'
 import NoResults from '@/components/shared/NoResults'
 import QuestionCard from '@/components/cards/QuestionCard'
 import HomeFilter from '@/components/shared/homeFilter/HomeFilter'
-import { HomePageFilters } from '@/constants/filters'
+import { QuestionFilters } from '@/constants/filters'
 
 import Link from 'next/link'
-import { getQuestions } from '@/lib/actions/question.action'
+
 import Filter from '@/components/shared/Filter'
+import { getSavedQuestions } from '@/lib/actions/user.action'
+import { auth } from '@clerk/nextjs/server'
 
 export default async function Home() {
-  const result = await getQuestions({})
+  const { userId } = auth()
+  if (!userId) return null
+
+  const result = await getSavedQuestions({ clerkId: userId })
 
   // Now the `questions` array matches the `QuestionProps` interface with random values.
 
@@ -18,7 +23,7 @@ export default async function Home() {
       <div>
         <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center '>
           <h1 className='h1-bold text-dark100_light900 font-medium'>
-            All Questions
+            Saved Question
           </h1>
           <Link href='/ask-question' className='flex justify-end max-sm:w-full'>
             <button className='  primary-gradient min-h-[46px]  rounded-lg px-4 py-3 text-light-900'>
@@ -36,7 +41,7 @@ export default async function Home() {
             otherClasses='flex-1 w-full'
           />{' '}
           <Filter
-            filters={HomePageFilters}
+            filters={QuestionFilters}
             containerClasses='hidden max-md:flex'
             otherClasses='min-h-[56px] sm:min-w-[176px]'
           />
@@ -59,7 +64,7 @@ export default async function Home() {
             ))
           ) : (
             <NoResults
-              title='There is no question to show'
+              title='There is no saved question to show'
               description=' Be the first to break the silence! 🚀Ask question and kickstart the
             discussion.our query could be the next big thing others can learn from.
             Get involved'
