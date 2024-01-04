@@ -4,6 +4,8 @@ import RenderTag from '../shared/RenderTag'
 import Link from 'next/link'
 import Metric from '../shared/Metric'
 import { formatAndDivideNumber, getTimestamp } from '@/lib/utils'
+import { SignedIn } from '@clerk/nextjs'
+import EditDeleteAction from '../shared/EditDeleteUserAction'
 
 interface QuestionProps {
   _id: string
@@ -35,6 +37,7 @@ const QuestionCard = ({
   answers,
   createdAt,
 }: QuestionProps) => {
+  const showActionButtons = clerkId && clerkId === author.clerkId
   return (
     <div
       className='card-wrapper
@@ -60,7 +63,13 @@ const QuestionCard = ({
             </h3>
           </Link>
         </div>
+        <SignedIn>
+          {showActionButtons && (
+            <EditDeleteAction type='Question' itemId={JSON.stringify(_id)} />
+          )}
+        </SignedIn>
       </div>
+
       <div className='mt-3.5 flex flex-wrap gap-2'>
         {tags.map((item) => (
           <RenderTag key={item._id} _id={item._id} name={item.name} />
