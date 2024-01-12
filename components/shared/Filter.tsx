@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 
 import {
   Select,
@@ -8,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { formUrlQuery } from '@/lib/utils'
 
 interface Props {
   filters: {
@@ -19,10 +22,26 @@ interface Props {
 }
 
 const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const paramFilter = searchParams.get('filter')
+  // const [filter, setFilter] = useState(paramFilter || filters[0].value)
+
+  const handleUpdateParams = (value: string) => {
+    const newUrl = formUrlQuery({
+      params: searchParams.toString(),
+      key: 'filter',
+      value,
+    })
+    router.push(newUrl, { scroll: false })
+  }
   return (
     <>
       <div className={`relative ${containerClasses}`}>
-        <Select>
+        <Select
+          onValueChange={handleUpdateParams}
+          defaultValue={paramFilter || undefined}
+        >
           <SelectTrigger
             className={`${otherClasses} body-regular 
           light-border background-light800_dark300
@@ -35,15 +54,17 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
               <SelectValue placeholder='Select a Filter' />
             </div>
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className='text-dark500_light700 small-regular border-none bg-light-900 dark:bg-dark-300'>
             <SelectGroup>
-              {filters.map((item) => {
-                return (
-                  <SelectItem key={item.value} value={item.value}>
-                    {item.name}
-                  </SelectItem>
-                )
-              })}
+              {filters.map((item) => (
+                <SelectItem
+                  key={item.value}
+                  value={item.value}
+                  className='cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400'
+                >
+                  {item.name}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>

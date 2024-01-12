@@ -37,7 +37,7 @@ const QuestionCard = ({
   answers,
   createdAt,
 }: QuestionProps) => {
-  const showActionButtons = clerkId && clerkId === author.clerkId
+  const showActionButtons = clerkId && clerkId === author?.clerkId
   return (
     <div
       className='card-wrapper

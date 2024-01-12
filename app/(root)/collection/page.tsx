@@ -9,12 +9,17 @@ import Link from 'next/link'
 import Filter from '@/components/shared/Filter'
 import { getSavedQuestions } from '@/lib/actions/user.action'
 import { auth } from '@clerk/nextjs/server'
+import { SearchParamsProps } from '@/types'
 
-export default async function Home() {
+export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth()
   if (!userId) return null
 
-  const result = await getSavedQuestions({ clerkId: userId })
+  const result = await getSavedQuestions({
+    clerkId: userId,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+  })
 
   // Now the `questions` array matches the `QuestionProps` interface with random values.
 
