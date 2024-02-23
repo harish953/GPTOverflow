@@ -59,10 +59,27 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
 export async function getAnswers(params: GetAnswersParams) {
   try {
     await connectToDatabase()
-    const { questionId } = params
+    const { questionId, sortBy } = params
+    let sortOptions = {}
+    switch (sortBy) {
+      case 'highestUpvotes':
+        sortOptions = { upvotes: -1 }
+        break
+      case 'lowestDownvotes':
+        sortOptions = { downvotes: 1 }
+        break
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+      case 'old':
+        sortOptions = { createdAt: 1 }
+        break
+      default:
+        break
+    }
     const answers = await Answer.find({ question: questionId })
       .populate('author', '_id clerkId name picture')
-      .sort({ createdAt: -1 })
+      .sort(sortOptions)
     return { answers }
   } catch (error) {
     console.log(error)

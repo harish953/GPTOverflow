@@ -2,7 +2,7 @@ import { BADGE_CRITERIA } from '@/constants'
 import { BadgeCounts } from '@/types'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-
+import queryString from 'query-string'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -84,4 +84,50 @@ export const assignBadges = (params: BadgeParam) => {
   })
 
   return badgeCounts
+}
+// import queryString from 'query-string';
+
+interface UrlQueryParams {
+  params: string
+  key: string
+  value: string | null
+}
+
+export const formUrlQuery = ({ params, key, value }: UrlQueryParams) => {
+  const currentUrl = queryString.parse(params)
+  const updatedUrl = { ...currentUrl, [key]: value }
+
+  // Construct the URL manually to ensure proper encoding
+  const finalUrl =
+    window.location.pathname +
+    '?' +
+    queryString.stringify(updatedUrl, { skipNull: true })
+
+  console.log(finalUrl)
+
+  return finalUrl
+}
+
+interface RemoveUrlQueryParams {
+  params: string
+  keysToRemove: string[]
+}
+
+export const removeKeysFromQuery = ({
+  params,
+  keysToRemove,
+}: RemoveUrlQueryParams) => {
+  const currentUrl = queryString.parse(params)
+  console.log(currentUrl)
+  keysToRemove.forEach((key) => {
+    delete currentUrl[key]
+  })
+
+  return queryString.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  )
 }

@@ -19,5 +19,5 @@ const answerSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 })
 
-const Answer = models.Answer || model('Answer', answerSchema)
+const Answer = models?.Answer || model('Answer', answerSchema)
 export default Answer

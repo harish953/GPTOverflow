@@ -1,4 +1,4 @@
-import { Schema, models, model, Document, Model } from 'mongoose'
+import { Schema, models, model, Document } from 'mongoose'
 
 // Define the interface for the Interaction document
 export interface IInteraction extends Document {
@@ -21,15 +21,7 @@ const interactionSchema = new Schema({
 })
 
 // Use a try-catch block to handle the model creation
-let Interaction: Model<IInteraction>
 
-try {
-  // Throws an error if the model name is invalid or a model with the same name already exists
-  Interaction = model<IInteraction>('Interaction', interactionSchema)
-} catch (error) {
-  // Provide a more informative error message
-  Interaction = models.Interaction as Model<IInteraction>
-  console.error('Error creating Interaction model:', error)
-}
-
+const Interaction =
+  models?.Interaction || model('Interaction', interactionSchema)
 export default Interaction

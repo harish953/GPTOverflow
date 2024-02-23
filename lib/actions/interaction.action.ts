@@ -1,5 +1,5 @@
 // import Answer from '@/database/answer.model'
-
+'use server'
 import Question from '@/database/question.model'
 import { connectToDatabase } from '../mongoose'
 import { ViewQuestionParams } from './shared'

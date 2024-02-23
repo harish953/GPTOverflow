@@ -40,39 +40,39 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase()
 
-    const { page = 1, pageSize = 10 } = params
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params
     const skipAmount = (page - 1) * pageSize
 
-    // const query: FilterQuery<typeof Tag> = {}
+    const query: FilterQuery<typeof Tag> = {}
 
-    // if (searchQuery) {
-    //   query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
-    // }
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
+    }
 
-    // let sortOptions = {}
+    let sortOptions = {}
 
-    // switch (filter) {
-    //   case 'popular':
-    //     sortOptions = { questions: -1 }
-    //     break
-    //   case 'recent':
-    //     sortOptions = { createdAt: -1 }
-    //     break
-    //   case 'name':
-    //     sortOptions = { name: 1 }
-    //     break
-    //   case 'old':
-    //     sortOptions = { createdAt: 1 }
-    //     break
+    switch (filter) {
+      case 'popular':
+        sortOptions = { questions: -1 }
+        break
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+      case 'name':
+        sortOptions = { name: 1 }
+        break
+      case 'old':
+        sortOptions = { createdAt: 1 }
+        break
 
-    //   default:
-    //     break
-    // }
+      default:
+        break
+    }
 
-    const totalTags = await Tag.countDocuments()
+    const totalTags = await Tag.countDocuments(query)
 
-    const tags = await Tag.find()
-      // .sort(sortOptions)
+    const tags = await Tag.find(query)
+      .sort(sortOptions)
       .skip(skipAmount)
       .limit(pageSize)
 
@@ -136,6 +136,22 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
     const questions = tag.questions
 
     return { tagTitle: tag.name, questions, isNext }
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getPopularTags() {
+  try {
+    connectToDatabase()
+    const tags = await Tag.aggregate([
+      // { $group: { _id: '$name' } },
+      { $project: { name: 1, totalQuestions: { $size: '$questions' } } },
+      { $sort: { totalQuestions: -1 } },
+      { $limit: 5 },
+    ])
+    return tags
   } catch (error) {
     console.log(error)
     throw error

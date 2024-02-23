@@ -16,5 +16,5 @@ const UserSchema = new Schema({
   createdOn: { type: Date, default: Date.now },
 })
 
-const Tag = models.Tag || model('Tag', UserSchema)
+const Tag = models?.Tag || model('Tag', UserSchema)
 export default Tag
