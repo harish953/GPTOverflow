@@ -8,11 +8,13 @@ import Link from 'next/link'
 import { getQuestions } from '@/lib/actions/question.action'
 import Filter from '@/components/shared/Filter'
 import { SearchParamsProps } from '@/types'
+import Pagination from '@/components/shared/Pagination'
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   })
 
   // Now the `questions` array matches the `QuestionProps` interface with random values.
@@ -73,6 +75,12 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           )}
         </div>
         {/* <QuestionCard /> */}
+      </div>
+      <div className='mt-10'>
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
       </div>
     </>
   )

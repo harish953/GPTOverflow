@@ -40,7 +40,7 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase()
 
-    const { searchQuery, page = 1, pageSize = 10 } = params
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params
     const skipAmount = (page - 1) * pageSize
 
     const query: FilterQuery<typeof Tag> = {}
@@ -49,30 +49,30 @@ export async function getAllTags(params: GetAllTagsParams) {
       query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
     }
 
-    // const sortOptions = {}
+    let sortOptions = {}
 
-    // switch (filter) {
-    //   case 'popular':
-    //     sortOptions = { questions: -1 }
-    //     break
-    //   case 'recent':
-    //     sortOptions = { createdAt: -1 }
-    //     break
-    //   case 'name':
-    //     sortOptions = { name: 1 }
-    //     break
-    //   case 'old':
-    //     sortOptions = { createdAt: 1 }
-    //     break
+    switch (filter) {
+      case 'popular':
+        sortOptions = { questions: -1 }
+        break
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+      case 'name':
+        sortOptions = { name: 1 }
+        break
+      case 'old':
+        sortOptions = { createdAt: 1 }
+        break
 
-    //   default:
-    //     break
-    // }
+      default:
+        break
+    }
 
-    const totalTags = await Tag.countDocuments()
+    const totalTags = await Tag.countDocuments(query)
 
     const tags = await Tag.find(query)
-      // .sort(sortOptions)
+      .sort(sortOptions)
       .skip(skipAmount)
       .limit(pageSize)
 
